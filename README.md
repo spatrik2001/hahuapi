@@ -9,5 +9,6 @@
 
 ## 2. feladat: Adatbázis létrehozása
 a. A local mongoDB szerver elindítása: cmd -> mongod (az ablak bezárása leállítja a szervert)
+
 7. Indítasz egy compasst.
 8. Elérési útnak megadod a "mongodb://127.0.0.1:27017" címet.
