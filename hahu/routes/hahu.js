@@ -30,6 +30,24 @@ router.post('/', function(req, res, next) {
             "arFt" : err.message
         })
     }
-})
+});
+
+router.get('/', function(req, res, next) {
+    Hirdetes
+    .find()
+    .then(hirdetesek => {
+        res.status(200).json(hirdetesek);
+    })
+});
+
+router.delete('/:id', function(req, res, next) {
+    const id = req.params.id;
+    Hirdetes
+    .findByIdAndDelete(id)
+    .then(res.status(200).json({
+        "message" : "A hirdetés ${id} azonosítóval törölve!"
+    }))
+    .catch(err => console.log(err))
+});
 
 module.exports = router;
