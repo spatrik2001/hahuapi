@@ -1,7 +1,7 @@
-const { json } = require('express');
 const express = require('express');
 const router = express.Router();
 const Hirdetes = require('../models/hirdetes');
+const Kategoria = require('../models/kategoria');
 
 router.post('/', function(req, res, next) {
     const _id = req.body._id;
@@ -40,13 +40,34 @@ router.get('/', function(req, res, next) {
     })
 });
 
+router.get('/:mezo', function(req, res, next) {
+    const mezo = req.params.mezo;
+    Hirdetes
+    .find()
+    .populate('kategoria', '-_id')
+    .sort({[mezo]: 1})
+    .then(mezok => {
+        res.status(200).json(mezok);
+    })
+    .catch(err => console.log(err))
+});
+
 router.delete('/:id', function(req, res, next) {
     const id = req.params.id;
     Hirdetes
-    .findByIdAndDelete(id)
-    .then(res.status(200).json({
-        "message" : "A hirdetés ${id} azonosítóval törölve!"
-    }))
+    .findById(id)
+    .then(result => {
+        if (result === null) {
+            res.json({
+                'error': `A hirdetés ${id} azonosítóval nem létezik.`
+            })
+        }
+        Hirdetes
+        .findByIdAndDelete(id)
+        .then(res.status(200).json({
+            'message' : `A hirdetés ${id} azonosítóval törölve!`
+        }))
+    })
     .catch(err => console.log(err))
 });
 

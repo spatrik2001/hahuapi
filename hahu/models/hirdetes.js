@@ -5,7 +5,8 @@ const hirdetesSchema = new Schema({
     _id: Number,
     kategoria: {
         type: Number,
-        default: 1
+        default: 1,
+        ref: 'Kategoria'
     },
     cim: {
         type: String,
