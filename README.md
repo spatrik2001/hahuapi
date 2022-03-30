@@ -7,15 +7,15 @@
 5. Telepíted a modulokat. (mongoose, nodemon, stb.)
 6. Package.jsonba átírod az indító parancsot, ha használsz nodemont
 
-### 2. feladat: Adatbázis létrehozása
+### Adatbázis létrehozása
 a. A local mongoDB szerver elindítása: cmd -> mongod (az ablak bezárása leállítja a szervert)
 
-7. Indítasz egy compasst.
-8. Elérési útnak megadod a "mongodb://127.0.0.1:27017" címet.
+7. Indítani kell egy compasst.
+8. Elérési útnak meg kell adni a "mongodb://127.0.0.1:27017" címet.
 
-### 5. feladat: POST kérés küldése az adatbázisra
+### POST kérés küldése az adatbázisra
 9. A headerben meg kell adni a Content-Type-ot, ami application/json
-10. Bodyban meg kell adni az értékeket json formátumban, mint pl.
+10. Bodyban meg kell adni az értékeket json formátumban az alábbiak alapján:
 
 "{
      "_id": 34,
