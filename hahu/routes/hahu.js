@@ -17,8 +17,8 @@ router.post('/', function(req, res, next) {
         if (arFt % 1000 != 0) {
             throw Error("Az ár nem osztható 1000-el!")
         }
-        const hirdetes = new Hirdetes({_id, kategoria, cim, leiras, hirdetesDatuma,
-            serulesmentes, arFt, kepUrl});
+        const hirdetes = new Hirdetes({_id, kategoria, cim, leiras, 
+            hirdetesDatuma, serulesmentes, arFt, kepUrl});
             hirdetes
             .save()
             .then(res.status(200).json({
@@ -28,7 +28,7 @@ router.post('/', function(req, res, next) {
     } catch (err) {
         res.status(400).json({
             "arFt" : err.message
-        })
+        });
     }
 });
 
@@ -67,6 +67,36 @@ router.delete('/:id', function(req, res, next) {
         .then(res.status(200).json({
             'message' : `A hirdetés ${id} azonosítóval törölve!`
         }))
+    })
+    .catch(err => console.log(err))
+});
+
+router.put('/', function(req, res, next) {
+    const id = req.body.id;
+    const updatedArFt = req.body.arFt;
+    Hirdetes
+    .findOneAndUpdate(id, {arFt: updatedArFt}, {runValidators: true},
+        function(err, docs) {
+        try {
+            if (docs === null)
+                throw new Error("A megadott azonosító nem létezik!");
+            res.json(docs);
+        } catch (err) {
+            res.json(err.message);
+        }
+    })
+});
+
+router.get('/adat/:id', function(req, res, next) {
+    const id = req.params.id;
+    Hirdetes
+    .findById(id)
+    .then(result => {
+        if (!result)
+            res.json({
+                'error': 'Nincs ilyen id!'
+            });
+        res.json(result);
     })
     .catch(err => console.log(err))
 });
